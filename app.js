@@ -48,18 +48,21 @@ app.post("/compose", (req, res) => {
   posts.push(newPost);
   res.redirect("/")
 })
+// app.get("/post", (req, res) => {
+  
+// })
 
+// app.get("post", (req, res)=> {
+//   res.render("/post");
+// })
 app.get("/posts/:postName", (req, res) => {
   const requestedTitle = _.lowerCase(req.params.postName);
   for (let entry of posts) {
     const storedTitle = _.lowerCase(entry.title);
     if (requestedTitle === storedTitle) {
-      console.log("Match found!")
+      res.render("post", {requestedTitle: entry.title, message: entry.content})
     }
   }
-
-  res.redirect("/compose")
-
 })
 
 app.listen(3000, function () {
